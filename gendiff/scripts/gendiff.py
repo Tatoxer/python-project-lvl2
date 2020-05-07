@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-from gendiff import generate_difference
+from gendiff import generate_difference, generate_cli_settings
 
 
 def main():
-    file_1, file_2 = generate_difference.make_description()
-    generate_difference.generate_diff(file_1, file_2)
+    dir_1, dir_2 = generate_cli_settings.generate_description_settings()
+    generate_difference.generate_diff(dir_1, dir_2)
 
 
 if __name__ == "__main__":

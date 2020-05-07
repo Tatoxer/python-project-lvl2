@@ -1,26 +1,5 @@
-import argparse
-
-before = {
-  "host": "hexlet.io",
-  "timeout": 50,
-  "proxy": "123.234.53.22"
-}
-
-after = {
-  "timeout": 20,
-  "verbose": "true",
-  "host": "hexlet.io"
-}
-
-
-def make_description():
-    parser = argparse.ArgumentParser(description="Generate difference")
-    parser.add_argument("file_1", type=str, help='path to file_1')
-    parser.add_argument("file_2", type=str, help='path to file_2')
-    parser.add_argument('-f', '--FORMAT', type=str, default=".json", help='set format for output file')
-    args = parser.parse_args()
-    print(args)
-    return args.file_1, args.file_2
+import json
+import os.path
 
 
 def generate_added_key(key, value):
@@ -33,8 +12,14 @@ def generate_removed_key(key, value):
     return {formatted_key: value}
 
 
-def generate_diff(file_1, file_2):
+def generate_diff(dir_1, dir_2):
     difference = {}
+    dir_1 = os.path.abspath(dir_1)
+    dir_2 = os.path.abspath(dir_2)
+    
+    file_1 = json.load(open(dir_1))
+    file_2 = json.load(open(dir_2))
+
     for key, value in file_1.items():
         if key in file_2 and value != file_2[key]:
             difference.update(generate_removed_key(key, value))
@@ -49,6 +34,3 @@ def generate_diff(file_1, file_2):
 
     for key, value in difference.items():
         print(f'{key}: {str(value)}')
-
-
-print(generate_diff(before, after))
