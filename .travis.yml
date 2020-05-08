@@ -1,10 +1,14 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=18eb5b794e3c857588c1f3f6c38916534dbb01ddaed077c75f95d3ab88c6c38f
+
+
 language: python
 python:
     - 3.8.2
 
 before_install:
     - pip install poetry
-    - pip install pytest-cov
 
 install:
   - make install
