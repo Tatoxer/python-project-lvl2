@@ -4,12 +4,12 @@ import os.path
 
 def generate_added_key(key, value):
     formatted_key = f'+ {key}'
-    return {formatted_key: value}
+    return {formatted_key: str(value)}
 
 
 def generate_removed_key(key, value):
     formatted_key = f'- {key}'
-    return {formatted_key: value}
+    return {formatted_key: str(value)}
 
 
 def print_keys_values(dictionary):
@@ -55,3 +55,4 @@ def generate_diff(dir_1, dir_2):
         difference.update(mark_added(key, file_1, file_2))
 
     print_keys_values(difference)
+    return difference
