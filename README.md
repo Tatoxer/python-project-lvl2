@@ -1,5 +1,7 @@
 # python-project-lvl2
 [![Maintainability](https://api.codeclimate.com/v1/badges/062b0c622abd1459f96b/maintainability)](https://codeclimate.com/github/Tatoxer/python-project-lvl2/maintainability)
+
+[![Build Status](https://travis-ci.org/Tatoxer/python-project-lvl2.svg?branch=master)](https://travis-ci.org/Tatoxer/python-project-lvl2)
 ## Install
 ```
 python -m pip install -i https://test.pypi.org/simple/ tatoxer-gendiff
