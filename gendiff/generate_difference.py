@@ -1,7 +1,3 @@
-import json
-import os.path
-
-
 def generate_added_key(key, value):
     formatted_key = f'+ {key}'
     return {formatted_key: str(value)}
@@ -39,20 +35,15 @@ def mark_added(key, dictionary_before, dictionary_after):
     return difference
 
 
-def generate_diff(dir_1, dir_2):
+def generate_diff(before, after):
     difference = {}
-    dir_1 = os.path.abspath(dir_1)
-    dir_2 = os.path.abspath(dir_2)
 
-    file_1 = json.load(open(dir_1))
-    file_2 = json.load(open(dir_2))
+    for key, value in before.items():
+        difference.update(mark_difference(key, before, after))
+        difference.update(mark_removed(key, before, after))
 
-    for key, value in file_1.items():
-        difference.update(mark_difference(key, file_1, file_2))
-        difference.update(mark_removed(key, file_1, file_2))
-
-    for key, value in file_2.items():
-        difference.update(mark_added(key, file_1, file_2))
+    for key, value in after.items():
+        difference.update(mark_added(key, before, after))
 
     print_keys_values(difference)
     return difference

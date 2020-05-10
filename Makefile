@@ -10,5 +10,5 @@ publish:
 lint:
 	@poetry run flake8 gendiff
 
-pytest:
+test:
 	@poetry run pytest --cov=gendiff --cov-report xml gendiff
