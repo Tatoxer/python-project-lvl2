@@ -8,5 +8,5 @@ def generate_description_settings():
     parser.add_argument('-f', '--FORMAT', type=str, default=".json",
                         help='set format for output file')
     args = parser.parse_args()
-    # print(args)
-    return args.file_1, args.file_2
+    print(args)
+    return args.file_1, args.file_2, args.FORMAT

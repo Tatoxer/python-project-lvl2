@@ -1,5 +1,5 @@
 from gendiff.generate_difference import generate_diff
-from gendiff.open_files import open_file
+from gendiff.open_file import open_file
 
 empty_file = "gendiff/tests/fixtures/test_files/empty.json"
 add_one = "gendiff/tests/fixtures/test_files/add_one.json"
