@@ -44,6 +44,7 @@ def mark_non_changed(key, dictionary_before, dictionary_after):
 
 def generate_diff(before, after):
     difference = {}
+    unpacked_dictionary = {}
 
     for key, value in before.items():
         difference.update(mark_difference(key, before, after))
@@ -56,3 +57,7 @@ def generate_diff(before, after):
     print(difference)
     # print_keys_values(difference)
     return difference
+
+
+
+
