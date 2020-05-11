@@ -1,3 +1,6 @@
+from collections import OrderedDict
+
+
 def generate_added_key(key, value):
     formatted_key = f'+ {key}'
     return {formatted_key: value}
@@ -42,20 +45,26 @@ def mark_non_changed(key, dictionary_before, dictionary_after):
     return difference
 
 
-def generate_diff(before, after):
-    difference = {}
-    unpacked_dictionary = {}
+difference = OrderedDict()
 
+
+def generate_diff(before, after):
     for key, value in before.items():
-        difference.update(mark_difference(key, before, after))
-        difference.update(mark_removed(key, before, after))
-        difference.update(mark_non_changed(key, before, after))
+        if isinstance(value, (dict, list)):
+            if key not in after:
+                difference.update(generate_removed_key(key, before[key]))
+                continue
+            generate_diff(value, after[key])
+        else:
+            difference.update(mark_difference(key, before, after))
+            difference.update(mark_non_changed(key, before, after))
 
     for key, value in after.items():
-        difference.update(mark_added(key, before, after))
+        if isinstance(value, (dict, list)):
+            if key not in before:
+                difference.update(mark_added(key, before, after))
+                continue
 
-    print(difference)
-    # print_keys_values(difference)
     return difference
 
 
