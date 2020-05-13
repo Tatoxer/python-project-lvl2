@@ -39,8 +39,14 @@ def render_result(dictionary, spaces=2):
         if value[0] == NESTED:
             result += make_result(key, render_result(value[1], spaces=spaces+4), spaces)
 
+        elif isinstance(value[1], dict) and value[0] == REMOVED:
+            result += make_result(key, value[1], spaces=spaces, marker=MARKERS[value[0]])
+
+        elif isinstance(value[1], dict) and value[0] == ADDED:
+            result += make_result(key, value[1], spaces=spaces, marker=MARKERS[value[0]])
+
         elif isinstance(value[1], dict) and not value[0] == CHANGED:
-            result += make_result(key, render_result(value[1], spaces=spaces+4), spaces, marker=MARKERS[value[0]])
+            result += make_result(key, render_result(value[1], spaces=spaces), spaces=spaces, marker=MARKERS[value[0]])
 
         elif value[0] == CHANGED:
             if isinstance(value[1], dict) and not isinstance(value[2], dict):
@@ -55,11 +61,10 @@ def render_result(dictionary, spaces=2):
                 result += make_result(key, value[2], spaces=spaces, marker="- ")
                 result += make_result(key, value[1], spaces=spaces, marker="+ ")
         else:
-            print(key, value)
-            #
+            result += make_result(key, value[1], spaces=spaces, marker=MARKERS[value[0]])
 
     result += ' ' * (spaces-2) + '}'
-    print(result)
+    return result
 
 
 test1 = {
@@ -101,4 +106,4 @@ test2 = {
 
 test_d = generate_diff(test1, test2)
 
-render_result(test_d)
+print(render_result(test_d))
