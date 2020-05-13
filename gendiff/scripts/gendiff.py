@@ -7,7 +7,7 @@ def main():
     file_1 = open_file.open_file(dir_1)
     file_2 = open_file.open_file(dir_2)
     difference = generate_difference.generate_diff(file_1, file_2)
-    print_difference_file.pack_and_print_file(difference, extension)
+    print_difference_file.pack_file(difference, ".json")
 
 
 if __name__ == "__main__":
