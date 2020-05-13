@@ -1,27 +1,25 @@
 from collections import OrderedDict
 
 
-def mark_difference(key, before, after):
-    difference = {}
+def mark_changed_key(key, before, after):
     if key in after and before[key] != after[key]:
-        difference[key] = mark_removed(key, before, after)
-        difference[key] = mark_added(key, before, after)
-    return difference
+        key = (CHANGED, before[key], after[key])
+    return key
 
 
-def mark_removed(key, dictionary_before, dictionary_after):
+def mark_removed_key(key, dictionary_before, dictionary_after):
     if key not in dictionary_after:
         key = (REMOVED, dictionary_before[key])
     return key
 
 
-def mark_added(key, dictionary_before, dictionary_after):
+def mark_added_key(key, dictionary_before, dictionary_after):
     if key not in dictionary_before:
         key = (ADDED, dictionary_after[key])
     return key
 
 
-def mark_non_changed(key, dictionary_before, dictionary_after):
+def mark_non_changed_key(key, dictionary_before, dictionary_after):
     if key in dictionary_after and dictionary_before[key] == dictionary_after[key]:
         key = (NON_CHANGED, dictionary_before[key])
     return key
@@ -32,10 +30,7 @@ REMOVED, ADDED, NON_CHANGED, CHANGED = "removed", "added", "non_changed", "chang
 
 def generate_diff(before, after):
     for key, value in before.items():
-        if key not in after:
-            before[key] = (REMOVED, value)
-
-        elif isinstance(value, (dict, list)):
+        if isinstance(value, dict):
             if key not in after:
                 before[key] = (REMOVED, value)
                 continue
@@ -43,19 +38,20 @@ def generate_diff(before, after):
             before[key] = (NON_CHANGED, value)
             generate_diff(value, after[key])
 
-        elif key not in after:
-            before[key] = (REMOVED, before[key])
-        elif key in after and value != after[key]:
-            before[key] = (CHANGED, value, after[key])
         else:
-            before[key] = (NON_CHANGED, value)
+            if key not in after:
+                before[key] = (REMOVED, value)
+
+            if key in after and before[key] != after[key]:
+                before[key] = (CHANGED, before[key], after[key])
+
+            elif key in after and before[key] == after[key]:
+                before[key] = (NON_CHANGED, before[key])
 
     for key, value in after.items():
-        if isinstance(value, (dict, list)):
-            if key not in before:
-                before[key] = (ADDED, value)
-                continue
-        before[key] = (ADDED, value)
+        if isinstance(value, dict) and key not in before:
+            before[key] = (ADDED, value)
+            continue
 
     return before
 
