@@ -33,6 +33,12 @@ def make_result(key, value, spaces, marker=None):
     return f"{string_spaces}{marker} {key}: {value}\n"
 
 
+def add_added_result(key, value, result, spaces):
+    if isinstance(value[1], dict) and value[0] == ADDED:
+        result += make_result(key, value[1], spaces=spaces, marker=MARKERS[value[0]])
+    return result
+
+
 def render_result(dictionary, spaces=2):
     result = "{ " + "\n"
     for key, value in dictionary.items():
