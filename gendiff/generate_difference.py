@@ -1,4 +1,6 @@
-REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = "removed", "added", "non_changed", "changed", "nested"
+REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
+    "removed", "added", "non_changed", "changed", "nested"
+)
 
 
 def mark_removed_key(key, value, dictionary_before, dictionary_after):
@@ -7,12 +9,12 @@ def mark_removed_key(key, value, dictionary_before, dictionary_after):
 
 
 def mark_changed_key(key, dictionary_before, dictionary_after):
-    if key in dictionary_after and dictionary_before[key] != dictionary_after[key]:
-        dictionary_before[key] = (CHANGED, dictionary_before[key], dictionary_after[key])
+    if key in dictionary_after and dictionary_before[key] != dictionary_after[key]:  # noqa: E501
+        dictionary_before[key] = (CHANGED, dictionary_before[key], dictionary_after[key])  # noqa: E501
 
 
 def mark_non_changed_key(key, dictionary_before, dictionary_after):
-    if key in dictionary_after and dictionary_before[key] == dictionary_after[key]:
+    if key in dictionary_after and dictionary_before[key] == dictionary_after[key]:  # noqa: E501
         dictionary_before[key] = (NON_CHANGED, dictionary_before[key])
 
 

@@ -1,5 +1,5 @@
-import json
 import os.path
+import json
 import yaml
 
 
@@ -11,4 +11,3 @@ def open_file(dir_1):
     else:
         file = yaml.safe_load(open(dir_1))
     return file
-
