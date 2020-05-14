@@ -1,5 +1,7 @@
 import json
 import yaml
+from gendiff.generate_difference import generate_diff
+from gendiff.open_file import open_file
 
 REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
     "removed", "added", "non_changed", "changed", "nested"
@@ -34,13 +36,13 @@ def make_result(key, value, spaces, marker=None):
 
 
 def render_result(dictionary, spaces=2):
-    result = "{ " + "\n"
+    result = "{" + "\n"
     for key, value in dictionary.items():
         if value[0] == NESTED:
             result += make_result(key, render_result(value[1], spaces=spaces + 4), spaces)  # noqa: E501
 
-        elif isinstance(value[1], dict) and value[0] == REMOVED or value[0] == ADDED:   # noqa: E501
-            result += make_result(key, value[1], spaces=spaces, marker=MARKERS[value[0]])   # noqa: E501
+        elif isinstance(value[1], dict) and value[0] == REMOVED or value[0] == ADDED:  # noqa: E501
+            result += make_result(key, value[1], spaces=spaces, marker=MARKERS[value[0]])  # noqa: E501
 
         elif isinstance(value[1], dict) and not value[0] == CHANGED:
             result += make_result(key, render_result(value[1], spaces=spaces),
@@ -48,10 +50,15 @@ def render_result(dictionary, spaces=2):
 
         elif value[0] == CHANGED:
             result += make_result(key, value[2], spaces=spaces, marker="- ")
-
             result += make_result(key, value[1], spaces=spaces, marker="+ ")
         else:
-            result += make_result(key, value[1], spaces=spaces, marker=MARKERS[value[0]])   # noqa: E501
+            result += make_result(key, value[1], spaces=spaces, marker=MARKERS[value[0]])  # noqa: E501
 
-    result += ' ' * (spaces - 2) + '}'
+    result += ' ' * (spaces - 2) + '}' + "\n"
     return result
+
+
+file1 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before.json")
+file2 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/empty.json")
+diff = generate_diff(file1, file2)
+print(render_result(diff))

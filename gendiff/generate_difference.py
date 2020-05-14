@@ -23,6 +23,8 @@ def mark_added_key(dictionary_before, dictionary_after):
         if isinstance(value, dict) and key not in dictionary_before:
             dictionary_before[key] = (ADDED, value)
             continue
+        elif key not in dictionary_before:
+            dictionary_before[key] = (ADDED, value)
 
 
 def generate_diff(before, after):
