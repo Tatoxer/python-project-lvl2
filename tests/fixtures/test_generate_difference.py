@@ -8,6 +8,8 @@ test_files = {
     "add_one": "tests/fixtures/test_files/add_one.json",
     "before": "tests/fixtures/test_files/before.json",
     "after": "tests/fixtures/test_files/after.json",
+    "before_2": "tests/fixtures/test_files/before_2.json",
+    "after_2": "tests/fixtures/test_files/after_2.json"
 }
 answer_files = {
     "right_plus_one": "tests/fixtures/right_answers/plus_one.txt",
@@ -15,6 +17,7 @@ answer_files = {
     "right_removed_and_added": "tests/fixtures/right_answers/removed_and_added.txt",
     "right_removed_all": "tests/fixtures/right_answers/removed_all.txt",
     "right_added_all": "tests/fixtures/right_answers/added_all.txt",
+    "right_changes": "tests/fixtures/right_answers/changes.txt",
 }
 
 
@@ -65,5 +68,13 @@ def test_add_all():
     file_1 = open_file(test_files["empty_file"])
     file_2 = open_file(test_files["before"])
     expected = open_txt(answer_files["right_added_all"])
+    difference = generate_diff(file_1, file_2)
+    assert render_result(difference) == expected
+
+
+def test_changes():
+    file_1 = open_file(test_files["before_2"])
+    file_2 = open_file(test_files["after_2"])
+    expected = open_txt(answer_files["right_changes"])
     difference = generate_diff(file_1, file_2)
     assert render_result(difference) == expected
