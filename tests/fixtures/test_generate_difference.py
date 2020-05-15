@@ -57,7 +57,7 @@ def test_removed_and_added():
 
 
 def test_remove_all():
-    file_1 = open_file(test_files["before"])
+    file_1 = open_file(test_files["before_2"])
     file_2 = open_file(test_files["empty_file"])
     expected = open_txt(answer_files["right_removed_all"])
     difference = generate_diff(file_1, file_2)
