@@ -42,43 +42,7 @@ def render_plain(dictionary):
     return result
 
 
-file_1 = {
-    "common": {
-        "setting1": "Value 1",
-        "setting2": "200",
-        "setting3": "true",
-        "setting6": {
-            "key": "value"
-        }
-    },
-    "group1": {
-        "baz": "bas",
-        "foo": "bar"
-    },
-    "group2": {
-        "abc": "12345"
-    }
-
-}
-file_2 = {
-    "common": {
-        "setting1": "Value 1",
-        "setting3": "true",
-        "setting4": "blah blah",
-        "setting5": {
-            "key5": "value5"
-        }
-    },
-
-    "group1": {
-        "foo": "bar",
-        "baz": "bars"
-    },
-
-    "group3": {
-        "fee": "100500"
-    }
-}
+file_1 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_2.json")
+file_2 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/after_2.json")
 dict_ = generate_diff(file_1, file_2)
-dicti = {'common': ('nested', {'setting1': ('non_changed', 'Value 1'), 'setting2': ('removed', '200'), 'setting3': ('non_changed', "True"), 'setting6': ('removed', {'key': ('non_changed', 'value')}), 'setting4': ('added', 'blah blah'), 'setting5': ('added', {'key5': ('non_changed', 'value5')})}), 'group1': ('nested', {'baz': ('changed', 'bas', 'bars'), 'foo': ('non_changed', 'bar')}), 'group2': ('removed', {'abc': ('non_changed', '12345')}), 'group3': ('added', {'fee': ('non_changed', '100500')})}
 print(render_plain(dict_))
