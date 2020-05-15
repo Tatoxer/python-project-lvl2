@@ -1,5 +1,3 @@
-from gendiff.open_file import open_file
-
 REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
     "removed", "added", "non_changed", "changed", "nested"
 )
@@ -36,7 +34,7 @@ def mark_added_key(dictionary_before, dictionary_after):
                 dictionary_before[key] = (ADDED, value)
 
                 if isinstance(value, dict):
-                    generate_diff(value, value)
+                    mark_non_changed_all_keys(value)
 
             elif key not in dictionary_before:
                 dictionary_before[key] = (ADDED, value)
@@ -61,10 +59,3 @@ def generate_diff(before, after):
 
     mark_added_key(before, after)
     return before
-
-
-file_1 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_2.json")
-file_2 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/after_2.json")
-
-if __name__ == "__main__":
-    print(generate_diff(file_1, file_2))

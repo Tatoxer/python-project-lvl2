@@ -66,7 +66,7 @@ def test_remove_all():
 
 def test_add_all():
     file_1 = open_file(test_files["empty_file"])
-    file_2 = open_file(test_files["before"])
+    file_2 = open_file(test_files["before_2"])
     expected = open_txt(answer_files["right_added_all"])
     difference = generate_diff(file_1, file_2)
     assert render_result(difference) == expected
