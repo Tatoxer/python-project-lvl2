@@ -55,7 +55,7 @@ def render_result(dictionary, spaces=2):
     return result
 
 
-file1 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_3.json")
-file2 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/empty.json")
+file1 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/empty.json")
+file2 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_2.json")
 diff = generate_diff(file1, file2)
 print(render_result(diff))

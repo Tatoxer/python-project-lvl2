@@ -22,20 +22,20 @@ def mark_non_changed_key(key, dictionary_before, dictionary_after):
 
 
 def mark_added_key(dictionary_before, dictionary_after):
-    for key, value in dictionary_after.items():
-        if isinstance(value, dict) and key not in dictionary_before:
-            dictionary_before[key] = (ADDED, value)
+    if isinstance(dictionary_after, dict):
+        for key, value in dictionary_after.items():
+            if isinstance(value, dict) and key not in dictionary_before:
+                dictionary_before[key] = (ADDED, value)
 
-            if isinstance(value, dict):
-                generate_diff(value, value)
+                if isinstance(value, dict):
+                    generate_diff(value, value)
 
-        elif key not in dictionary_before:
-            dictionary_before[key] = (ADDED, value)
+            elif key not in dictionary_before:
+                dictionary_before[key] = (ADDED, value)
 
 
 def generate_diff(before, after):
     for key, value in before.items():
-        print(key, type(value))
         if isinstance(value, dict):
             if key not in after:
                 before[key] = (REMOVED, value)
@@ -51,10 +51,14 @@ def generate_diff(before, after):
             mark_changed_key(key, before, after)
             mark_non_changed_key(key, before, after)
 
-    # mark_added_key(before, after)
+    mark_added_key(before, after)
     return before
 
 
-file_1 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_3.json")
-file_2 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/empty.json")
-print(generate_diff(file_1, file_2))
+file_1 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/empty.json")
+file_2 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_2.json")
+
+
+
+if __name__ == "__main__":
+    print(generate_diff(file_1, file_2))
