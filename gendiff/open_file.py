@@ -22,3 +22,8 @@ def open_file(dir_1):
         print(", ".join(SUPPORTED_FORMATS))
         file = None
     return file
+
+
+
+file = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_2.json")
+print(file)

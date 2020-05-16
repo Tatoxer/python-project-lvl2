@@ -2,7 +2,8 @@
 from gendiff.generate_difference import generate_diff
 from gendiff.generate_cli_settings import generate_description_settings
 from gendiff.open_file import open_file
-from gendiff.renderers.dictionary_render import render_dictionary, print_colored_dict
+from gendiff.renderers.dictionary_render import render_dictionary,\
+    print_colored_dict
 from gendiff.renderers.plain_render import render_plain, print_colored_plain
 
 

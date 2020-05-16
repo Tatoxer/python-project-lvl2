@@ -52,12 +52,12 @@ def print_colored_dict(string):
     index = 0
     while index < len(string):
         if "-" in string[index]:
-            result, index = check_color_condition(index, string, result, Fore.RED)
+            result, index = check_color_condition(index, string, result, Fore.RED)  # noqa: E501
             result += Fore.RED + string[index] + "\n"
             index += 1
 
         elif "+" in string[index]:
-            result, index = check_color_condition(index, string, result, Fore.GREEN)
+            result, index = check_color_condition(index, string, result, Fore.GREEN)    # noqa: E501
             result += Fore.GREEN + string[index] + "\n"
             index += 1
         else:

@@ -3,6 +3,7 @@ from colorama import Fore
 REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
     "removed", "added", "non_changed", "changed", "nested"
 )
+INDEXES = [":::", "red", "green"]
 
 
 def make_result(key, value):
@@ -11,15 +12,19 @@ def make_result(key, value):
 
     elif value[0] == CHANGED:
         if isinstance(value[2], dict):
-            result = f"Property '{key}' was {value[0]} from '{value[1]}' to 'complex value':::white:::\n"
+            result = f"Property '{key}' was {value[0]} " \
+                     f"from '{value[1]}' to 'complex value':::white:::\n"
         else:
-            result = f"Property '{key}' was {value[0]} from '{value[1]}' to '{value[2]}':::white:::\n"
+            result = f"Property '{key}' was {value[0]} " \
+                     f"from '{value[1]}' to '{value[2]}':::white:::\n"
 
     elif value[0] == ADDED:
         if isinstance(value[1], dict):
-            result = f"Property '{key}' was {value[0]} with value: 'complex value':::green:::\n"
+            result = f"Property '{key}' was {value[0]} " \
+                     f"with value: 'complex value':::green:::\n"
         else:
-            result = f"Property '{key}' was {value[0]} with value: '{value[1]}':::green:::\n"
+            result = f"Property '{key}' was {value[0]} " \
+                     f"with value: '{value[1]}':::green:::\n"
 
     else:
         result = ""
