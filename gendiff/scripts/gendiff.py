@@ -3,7 +3,7 @@ from gendiff.generate_difference import generate_diff
 from gendiff.generate_cli_settings import generate_description_settings
 from gendiff.open_file import open_file
 from gendiff.renderers.dictionary_render import render_dictionary
-from gendiff.renderers.plain_render import render_plain
+from gendiff.renderers.plain_render import render_plain, print_colored_plain
 
 
 def choose_renderer(renderer, dictionary):
@@ -11,7 +11,7 @@ def choose_renderer(renderer, dictionary):
         print(render_dictionary(dictionary))
 
     else:
-        print(render_plain(dictionary))
+        print_colored_plain(render_plain(dictionary))
 
 
 def main():
