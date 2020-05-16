@@ -1,0 +1,25 @@
+{
+  "common": {
+    "setting1": "Value 1",
+    "setting2": "200",
+    "setting3": true,
+    "setting6": {
+      "key": {
+        "test_value_2": "val",
+        "test_3_val": "val_3"
+      },
+      "test": {
+        "some_key": {
+          "another": "test_value"
+        }
+      }
+    }
+  },
+  "group1": {
+    "baz": "bas",
+    "foo": "bar"
+  },
+  "group2": {
+    "abc": "12345"
+  }
+}

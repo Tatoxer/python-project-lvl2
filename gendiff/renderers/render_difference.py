@@ -1,7 +1,3 @@
-import json
-import yaml
-
-
 REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
     "removed", "added", "non_changed", "changed", "nested"
 )
@@ -11,20 +7,6 @@ MARKERS = {
     "added": "+ ",
     "changed": None
 }
-
-
-def pack_file(dictionary, extension):
-    if extension == ".json":
-        file = json.dumps(dictionary, indent=2)
-        test_file = open("test.json", "w")
-        test_file.write(file)
-        test_file.close()
-    else:
-        file = yaml.dump(dictionary, default_flow_style=False)
-        test_file = open("test.yaml", "w")
-        test_file.write(file)
-        test_file.close()
-    print(file)
 
 
 def make_result(key, value, spaces, marker=None):

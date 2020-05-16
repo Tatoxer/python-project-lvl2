@@ -11,7 +11,10 @@ def make_result(key, value):
         result = f"Property '{key}' was {value[0]}\n"
 
     elif value[0] == CHANGED:
-        result = f"Property '{key}' was {value[0]} from '{value[1]}' to '{value[2]}'\n"
+        if isinstance(value[2], dict):
+            result = f"Property '{key}' was {value[0]} from '{value[1]}' to 'complex value'\n"
+        else:
+            result = f"Property '{key}' was {value[0]} from '{value[1]}' to '{value[2]}'\n"
 
     elif value[0] == ADDED:
         if isinstance(value[1], dict):
@@ -45,8 +48,7 @@ def render_plain(dictionary, root_keys=None):
     return result
 
 
-file_1 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_2.json")
-file_2 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/after_2.json")
-dict_ = generate_diff(file_1, file_2)
-print(render_plain(dict_))
-
+file_1 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_3.json")
+file_2 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_2.json")
+d = generate_diff(file_1, file_2)
+print(render_plain(d))

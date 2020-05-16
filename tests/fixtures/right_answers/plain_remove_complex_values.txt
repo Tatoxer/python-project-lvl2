@@ -1,0 +1,3 @@
+Property 'common.setting6.key.test_value_2' was removed
+Property 'common.setting6.key.test_3_val' was removed
+Property 'common.setting6.test' was removed
