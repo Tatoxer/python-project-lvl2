@@ -1,5 +1,5 @@
 from gendiff.generate_difference import generate_diff
-from gendiff.renderers.render_difference import render_result
+from gendiff.renderers.dictionary_render import render_dictionary
 from gendiff.open_file import open_file
 from gendiff.renderers.plain_render import render_plain
 
@@ -44,7 +44,7 @@ def test_add_one_to_empty():
     file_2 = open_file(test_files["add_one"])
     expected = open_txt(answer_files["right_plus_one"])
     difference = generate_diff(file_1, file_2)
-    assert render_result(difference) == expected
+    assert render_dictionary(difference) == expected
 
 
 def test_remove_one_to_empty():
@@ -52,7 +52,7 @@ def test_remove_one_to_empty():
     file_2 = open_file(test_files["empty_file"])
     expected = open_txt(answer_files["right_minus_one"])
     difference = generate_diff(file_1, file_2)
-    assert render_result(difference) == expected
+    assert render_dictionary(difference) == expected
 
 
 def test_removed_and_added():
@@ -60,7 +60,7 @@ def test_removed_and_added():
     file_2 = open_file(test_files["after"])
     expected = open_txt(answer_files["right_removed_and_added"])
     difference = generate_diff(file_1, file_2)
-    assert render_result(difference) == expected
+    assert render_dictionary(difference) == expected
 
 
 def test_remove_all():
@@ -68,7 +68,7 @@ def test_remove_all():
     file_2 = open_file(test_files["empty_file"])
     expected = open_txt(answer_files["right_removed_all"])
     difference = generate_diff(file_1, file_2)
-    assert render_result(difference) == expected
+    assert render_dictionary(difference) == expected
 
 
 def test_add_all():
@@ -76,7 +76,7 @@ def test_add_all():
     file_2 = open_file(test_files["before_2"])
     expected = open_txt(answer_files["right_added_all"])
     difference = generate_diff(file_1, file_2)
-    assert render_result(difference) == expected
+    assert render_dictionary(difference) == expected
 
 
 def test_changes():
@@ -84,7 +84,7 @@ def test_changes():
     file_2 = open_file(test_files["after_2"])
     expected = open_txt(answer_files["right_changes"])
     difference = generate_diff(file_1, file_2)
-    assert render_result(difference) == expected
+    assert render_dictionary(difference) == expected
 
 
 def test_plain_changes():

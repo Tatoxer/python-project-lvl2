@@ -46,9 +46,3 @@ def render_plain(dictionary, root_keys=None):
         else:
             result += make_result(path, value)
     return result
-
-
-file_1 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_3.json")
-file_2 = open_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_files/before_2.json")
-d = generate_diff(file_1, file_2)
-print(render_plain(d))

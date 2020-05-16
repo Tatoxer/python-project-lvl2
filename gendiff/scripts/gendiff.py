@@ -2,7 +2,16 @@
 from gendiff.generate_difference import generate_diff
 from gendiff.generate_cli_settings import generate_description_settings
 from gendiff.open_file import open_file
-from gendiff.renderers.render_difference import render_result
+from gendiff.renderers.dictionary_render import render_dictionary
+from gendiff.renderers.plain_render import render_plain
+
+
+def choose_renderer(renderer, dictionary):
+    if renderer == "dictionary":
+        print(render_dictionary(dictionary))
+
+    else:
+        print(render_plain(dictionary))
 
 
 def main():
@@ -10,7 +19,7 @@ def main():
     file_1 = open_file(dir_1)
     file_2 = open_file(dir_2)
     difference = generate_diff(file_1, file_2)
-    print(render_result(difference))
+    choose_renderer(renderer, difference)
 
 
 if __name__ == "__main__":
