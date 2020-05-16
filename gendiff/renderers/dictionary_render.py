@@ -1,3 +1,5 @@
+from colorama import Fore
+
 REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
     "removed", "added", "non_changed", "changed", "nested"
 )
@@ -34,3 +36,31 @@ def render_dictionary(dictionary, spaces=2):
 
     result += ' ' * (spaces - 2) + '}' + "\n"
     return result
+
+
+def check_color_condition(index, string, result, color):
+    if "{" in string[index]:
+        while "}" not in string[index]:
+            result += color + string[index] + "\n"
+            index += 1
+    return result, index
+
+
+def print_colored_dict(string):
+    result = ""
+    string = string.splitlines()
+    index = 0
+    while index < len(string):
+        if "-" in string[index]:
+            result, index = check_color_condition(index, string, result, Fore.RED)
+            result += Fore.RED + string[index] + "\n"
+            index += 1
+
+        elif "+" in string[index]:
+            result, index = check_color_condition(index, string, result, Fore.GREEN)
+            result += Fore.GREEN + string[index] + "\n"
+            index += 1
+        else:
+            result += Fore.WHITE + string[index] + "\n"
+            index += 1
+    print(result)

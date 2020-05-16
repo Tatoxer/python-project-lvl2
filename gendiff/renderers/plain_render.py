@@ -1,5 +1,3 @@
-from gendiff.generate_difference import generate_diff
-from gendiff.open_file import open_file
 from colorama import Fore
 
 REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
@@ -52,17 +50,16 @@ def render_plain(dictionary, root_keys=None):
 
 def print_colored_plain(string):
     string = string.split(":::")
-    i = 1
+    index = 1
     result = ""
-    while i < len(string):
-        if string[i] == "red":
-            result += Fore.RED + string[i - 1]
-            i += 2
-        elif string[i] == "green":
-            result += Fore.GREEN + string[i - 1]
-            i += 2
+    while index < len(string):
+        if string[index] == "red":
+            result += Fore.RED + string[index - 1]
+            index += 2
+        elif string[index] == "green":
+            result += Fore.GREEN + string[index - 1]
+            index += 2
         else:
-            result += Fore.YELLOW + string[i - 1]
-            i += 2
+            result += Fore.YELLOW + string[index - 1]
+            index += 2
     print(result)
-

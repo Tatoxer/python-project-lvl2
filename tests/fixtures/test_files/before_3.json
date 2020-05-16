@@ -6,7 +6,7 @@
     "setting6": {
       "key": {
         "test_value_2": "val",
-        "test_3_val": "val_3"
+        "test_3_val": "+ val_3"
       },
       "test": {
         "some_key": {

@@ -1,6 +1,3 @@
-from gendiff.open_file import open_file
-
-
 REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
     "removed", "added", "non_changed", "changed", "nested"
 )
