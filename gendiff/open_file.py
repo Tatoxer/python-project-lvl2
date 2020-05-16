@@ -22,6 +22,3 @@ def open_file(dir_1):
         print(", ".join(SUPPORTED_FORMATS))
         file = None
     return file
-
-
-open_file("dsa/dsad.jpg")
