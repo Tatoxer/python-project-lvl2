@@ -24,23 +24,24 @@ def make_result(key, value):
     return result
 
 
-def render_plain(dictionary):
+def render_plain(dictionary, root_keys=None):
     result = ""
 
     for key, value in dictionary.items():
+        path = f"{root_keys}.{key}" if root_keys else key
         if isinstance(value[1], dict) and value[0] == REMOVED:
-            a, b = REMOVED, value[1]
-            result += make_result(key, (a, b))
+            value_1, value_2 = REMOVED, value[1]
+            result += make_result(path, (value_1, value_2))
 
         elif isinstance(value[1], dict) and value[0] == ADDED:
-            a, b = ADDED, value[1]
-            result += make_result(key, (a, b))
+            value_1, value_2 = ADDED, value[1]
+            result += make_result(path, (value_1, value_2))
 
         elif isinstance(value[1], dict):
-            result += render_plain(value[1])
+            result += render_plain(value[1], path)
 
         else:
-            result += make_result(key, value)
+            result += make_result(path, value)
     return result
 
 
