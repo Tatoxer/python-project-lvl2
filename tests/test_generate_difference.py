@@ -1,7 +1,5 @@
-from gendiff.generate_difference import generate_diff
-from gendiff.renderers.dictionary_render import render_dictionary
-from gendiff.open_file import open_file
-from gendiff.renderers.plain_render import render_plain
+from gendiff import generate_diff, render_dictionary, open_file, \
+    render_plain, render_json
 
 
 test_files = {
@@ -24,7 +22,8 @@ answer_files = {
     "plain_remove_all": "tests/fixtures/right_answers/plain_remove_all.txt",
     "plain_add_all": "tests/fixtures/right_answers/plain_add_all.txt",
     "plain_add_complex": "tests/fixtures/right_answers/plain_add_complex_values.txt",
-    "plain_remove_complex": "tests/fixtures/right_answers/plain_remove_complex_values.txt"
+    "plain_remove_complex": "tests/fixtures/right_answers/plain_remove_complex_values.txt",
+    "json_changes": "tests/fixtures/right_answers/json_changes.txt"
 }
 
 
@@ -125,3 +124,11 @@ def test_plain_remove_complex_value():
     expected = open_txt(answer_files["plain_remove_complex"])
     difference = generate_diff(file_1, file_2)
     assert render_plain(difference) == expected
+
+
+def test_json_difference():
+    file_1 = open_file(test_files["before_2"])
+    file_2 = open_file(test_files["after_2"])
+    expected = open_txt(answer_files["json_changes"])
+    difference = generate_diff(file_1, file_2)
+    assert render_json(difference) == expected
