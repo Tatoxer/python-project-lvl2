@@ -5,11 +5,15 @@ from gendiff.open_file import open_file
 from gendiff.renderers.dictionary_render import render_dictionary,\
     print_colored_dict
 from gendiff.renderers.plain_render import render_plain, print_colored_plain
+from gendiff.renderers.json_renderer import render_json
 
 
 def choose_renderer(renderer, dictionary):
     if renderer == "dictionary":
         print_colored_dict(render_dictionary(dictionary))
+
+    elif renderer == "json":
+        print(render_json(dictionary))
 
     else:
         print_colored_plain(render_plain(dictionary))
