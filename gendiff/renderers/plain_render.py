@@ -8,23 +8,23 @@ INDEXES = [":::", "red", "green"]
 
 def make_result(key, value):
     if value[0] == REMOVED:
-        result = f"Property '{key}' was {value[0]}:::red:::\n"
+        result = f"Property '{key}' was {value[0]}\n"
 
     elif value[0] == CHANGED:
         if isinstance(value[2], dict):
             result = f"Property '{key}' was {value[0]} " \
-                     f"from '{value[1]}' to 'complex value':::white:::\n"
+                     f"from '{value[1]}' to 'complex value'\n"
         else:
             result = f"Property '{key}' was {value[0]} " \
-                     f"from '{value[1]}' to '{value[2]}':::white:::\n"
+                     f"from '{value[1]}' to '{value[2]}'\n"
 
     elif value[0] == ADDED:
         if isinstance(value[1], dict):
             result = f"Property '{key}' was {value[0]} " \
-                     f"with value: 'complex value':::green:::\n"
+                     f"with value: 'complex value'\n"
         else:
             result = f"Property '{key}' was {value[0]} " \
-                     f"with value: '{value[1]}':::green:::\n"
+                     f"with value: '{value[1]}'\n"
 
     else:
         result = ""
@@ -54,17 +54,13 @@ def render_plain(dictionary, root_keys=None):
 
 
 def print_colored_plain(string):
-    string = string.split(":::")
-    index = 1
+    string = string.splitlines()
     result = ""
-    while index < len(string):
-        if string[index] == "red":
-            result += Fore.RED + string[index - 1]
-            index += 2
-        elif string[index] == "green":
-            result += Fore.GREEN + string[index - 1]
-            index += 2
+    for elem in string:
+        if "removed" in elem:
+            result += Fore.RED + elem + "\n"
+        elif "added" in elem:
+            result += Fore.GREEN + elem + "\n"
         else:
-            result += Fore.YELLOW + string[index - 1]
-            index += 2
+            result += Fore.YELLOW + elem + "\n"
     print(result)
