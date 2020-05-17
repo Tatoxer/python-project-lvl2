@@ -3,7 +3,6 @@ from colorama import Fore
 REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
     "removed", "added", "non_changed", "changed", "nested"
 )
-INDEXES = [":::", "red", "green"]
 
 
 def make_result(key, value):
