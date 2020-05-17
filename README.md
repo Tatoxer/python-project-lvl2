@@ -15,3 +15,15 @@ python -m pip install -i https://test.pypi.org/simple/ tatoxer-gendiff
 
 ### plain json
 [![asciicast](https://asciinema.org/a/5y1DYgx9lXz3tIrko828MMW64.svg)](https://asciinema.org/a/5y1DYgx9lXz3tIrko828MMW64)
+
+### plain yaml
+[![asciicast](https://asciinema.org/a/Ffnzunyn9mogXT7ZGc9qf0pan.svg)](https://asciinema.org/a/Ffnzunyn9mogXT7ZGc9qf0pan)
+
+### recursive dictionary render
+[![asciicast](https://asciinema.org/a/XRvlCCrNv0yA5PDbGSbU7KNRZ.svg)](https://asciinema.org/a/XRvlCCrNv0yA5PDbGSbU7KNRZ)
+
+### plain render
+[![asciicast](https://asciinema.org/a/OPstg5OCi7BQqP5CcuoN1L72n.svg)](https://asciinema.org/a/OPstg5OCi7BQqP5CcuoN1L72n)
+
+### json render
+[![asciicast](https://asciinema.org/a/lSBegOk5eF5glnhCk77ML8lN9.svg)](https://asciinema.org/a/lSBegOk5eF5glnhCk77ML8lN9)
