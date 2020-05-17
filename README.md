@@ -13,4 +13,5 @@ python -m pip install -i https://test.pypi.org/simple/ tatoxer-gendiff
 
 ## Usage
 
-[![asciicast](https://asciinema.org/a/HaPwddw3A5iTQpV8TXDfS3Xvr.svg)](https://asciinema.org/a/HaPwddw3A5iTQpV8TXDfS3Xvr)
+### plain json
+[![asciicast](https://asciinema.org/a/5y1DYgx9lXz3tIrko828MMW64.svg)](https://asciinema.org/a/5y1DYgx9lXz3tIrko828MMW64)
