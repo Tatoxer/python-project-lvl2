@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tatoxer_gendiff"
-version = "0.3.0"
+version = "0.3.1"
 description = ""
 authors = ["Anton Selifanov <Tatoxer@gmail.com>"]
 packages = [
@@ -12,6 +12,8 @@ gendiff = "gendiff.scripts.gendiff:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+PyYAML = "^5.3.1"
+colorama = "^0.4.3"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7.9"
