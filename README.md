@@ -7,7 +7,7 @@
 
 ## Install
 ```
-python -m pip install -i https://test.pypi.org/simple/ tatoxer-gendiff
+python3 -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ tatoxer-gendiff
 ```
 [![asciicast](https://asciinema.org/a/dNlIH1b0Be5ibGw3wDveH1eTu.svg)](https://asciinema.org/a/dNlIH1b0Be5ibGw3wDveH1eTu)
 
