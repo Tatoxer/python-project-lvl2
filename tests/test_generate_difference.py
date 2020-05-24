@@ -2,133 +2,132 @@ from gendiff import generate_diff, render_dictionary, open_file, \
     render_plain, render_json
 
 
-test_files = {
-    "empty_file": "tests/fixtures/test_files/empty.json",
-    "add_one": "tests/fixtures/test_files/add_one.json",
-    "before": "tests/fixtures/test_files/before.json",
-    "after": "tests/fixtures/test_files/after.json",
-    "before_2": "tests/fixtures/test_files/before_2.json",
-    "after_2": "tests/fixtures/test_files/after_2.json",
-    "before_3": "tests/fixtures/test_files/before_3.json",
-}
-answer_files = {
-    "right_plus_one": "tests/fixtures/right_answers/plus_one.txt",
-    "right_minus_one": "tests/fixtures/right_answers/minus_one.txt",
-    "right_removed_and_added": "tests/fixtures/right_answers/removed_and_added.txt",
-    "right_removed_all": "tests/fixtures/right_answers/removed_all.txt",
-    "right_added_all": "tests/fixtures/right_answers/added_all.txt",
-    "right_changes": "tests/fixtures/right_answers/changes.txt",
-    "plain_changes": "tests/fixtures/right_answers/plain_changes.txt",
-    "plain_remove_all": "tests/fixtures/right_answers/plain_remove_all.txt",
-    "plain_add_all": "tests/fixtures/right_answers/plain_add_all.txt",
-    "plain_add_complex": "tests/fixtures/right_answers/plain_add_complex_values.txt",
-    "plain_remove_complex": "tests/fixtures/right_answers/plain_remove_complex_values.txt",
-    "json_changes": "tests/fixtures/right_answers/json_changes.txt"
-}
+"""Test files"""
+EMPTY_FILE = "tests/fixtures/test_empty.json"
+ADD_ONE = "tests/fixtures/test_add_one.json"
+BEFORE = "tests/fixtures/test_before.json"
+AFTER = "tests/fixtures/test_after.json"
+BEFORE_2 = "tests/fixtures/test_before_2.json"
+AFTER_2 = "tests/fixtures/test_after_2.json"
+BEFORE_3 = "tests/fixtures/test_before_3.json"
+
+"""Answer files"""
+PLUS_ONE = "tests/fixtures/answer_plus_one.txt"
+MINUS_ONE = "tests/fixtures/answer_minus_one.txt"
+REMOVED_AND_ADDED = "tests/fixtures/answer_removed_and_added.txt"
+REMOVED_ALL = "tests/fixtures/answer_removed_all.txt"
+ADDED_ALL = "tests/fixtures/answer_added_all.txt"
+CHANGES = "tests/fixtures/answer_changes.txt"
+PLAIN_CHANGES = "tests/fixtures/answer_plain_changes.txt"
+PLAIN_REMOVE_ALL = "tests/fixtures/answer_plain_remove_all.txt"
+PLAIN_ADD_ALL = "tests/fixtures/answer_plain_add_all.txt"
+PLAIN_ADD_COMPLEX = "tests/fixtures/answer_plain_add_complex_values.txt"
+PLAIN_REMOVE_COMPLEX = "tests/fixtures/answer_plain_remove_complex_values.txt"
+JSON_CHANGES = "tests/fixtures/answer_json_changes.txt"
 
 
-def open_txt(dir_):
-    with open(dir_, "r") as answer:
+def read_txt(path_to_file):
+    with open(path_to_file, "r") as answer:
         expected = answer.read()
     return expected
 
 
 def test_empty():
-    file_1 = open_file(test_files["empty_file"])
+    file_1 = open_file(EMPTY_FILE)
     assert generate_diff(file_1, file_1) == {}
 
 
 def test_add_one_to_empty():
-    file_1 = open_file(test_files["empty_file"])
-    file_2 = open_file(test_files["add_one"])
-    expected = open_txt(answer_files["right_plus_one"])
+    file_1 = open_file(EMPTY_FILE)
+    file_2 = open_file(ADD_ONE)
+    expected = read_txt(PLUS_ONE)
     difference = generate_diff(file_1, file_2)
     assert render_dictionary(difference) == expected
 
 
 def test_remove_one_to_empty():
-    file_1 = open_file(test_files["add_one"])
-    file_2 = open_file(test_files["empty_file"])
-    expected = open_txt(answer_files["right_minus_one"])
+    file_1 = open_file(ADD_ONE)
+    file_2 = open_file(EMPTY_FILE)
+    expected = read_txt(MINUS_ONE)
     difference = generate_diff(file_1, file_2)
     assert render_dictionary(difference) == expected
 
 
 def test_removed_and_added():
-    file_1 = open_file(test_files["before"])
-    file_2 = open_file(test_files["after"])
-    expected = open_txt(answer_files["right_removed_and_added"])
+    file_1 = open_file(BEFORE)
+    file_2 = open_file(AFTER)
+    expected = read_txt(REMOVED_AND_ADDED)
     difference = generate_diff(file_1, file_2)
     assert render_dictionary(difference) == expected
 
 
 def test_remove_all():
-    file_1 = open_file(test_files["before_2"])
-    file_2 = open_file(test_files["empty_file"])
-    expected = open_txt(answer_files["right_removed_all"])
+    file_1 = open_file(BEFORE_2)
+    file_2 = open_file(EMPTY_FILE)
+    expected = read_txt(REMOVED_ALL)
     difference = generate_diff(file_1, file_2)
     assert render_dictionary(difference) == expected
 
 
 def test_add_all():
-    file_1 = open_file(test_files["empty_file"])
-    file_2 = open_file(test_files["before_2"])
-    expected = open_txt(answer_files["right_added_all"])
+    file_1 = open_file(EMPTY_FILE)
+    file_2 = open_file(BEFORE_2)
+    expected = read_txt(ADDED_ALL)
     difference = generate_diff(file_1, file_2)
     assert render_dictionary(difference) == expected
 
 
 def test_changes():
-    file_1 = open_file(test_files["before_2"])
-    file_2 = open_file(test_files["after_2"])
-    expected = open_txt(answer_files["right_changes"])
+    file_1 = open_file(BEFORE_2)
+    file_2 = open_file(AFTER_2)
+    expected = read_txt(CHANGES)
     difference = generate_diff(file_1, file_2)
     assert render_dictionary(difference) == expected
 
 
 def test_plain_changes():
-    file_1 = open_file(test_files["before_2"])
-    file_2 = open_file(test_files["after_2"])
-    expected = open_txt(answer_files["plain_changes"])
+    file_1 = open_file(BEFORE_2)
+    file_2 = open_file(AFTER_2)
+    expected = read_txt(PLAIN_CHANGES)
     difference = generate_diff(file_1, file_2)
     assert render_plain(difference) == expected
 
 
 def test_plain_remove_all():
-    file_1 = open_file(test_files["before_2"])
-    file_2 = open_file(test_files["empty_file"])
-    expected = open_txt(answer_files["plain_remove_all"])
+    file_1 = open_file(BEFORE_2)
+    file_2 = open_file(EMPTY_FILE)
+    expected = read_txt(PLAIN_REMOVE_ALL)
     difference = generate_diff(file_1, file_2)
     assert render_plain(difference) == expected
 
 
 def test_plain_add_all():
-    file_1 = open_file(test_files["empty_file"])
-    file_2 = open_file(test_files["before_2"])
-    expected = open_txt(answer_files["plain_add_all"])
+    file_1 = open_file(EMPTY_FILE)
+    file_2 = open_file(BEFORE_2)
+    expected = read_txt(PLAIN_ADD_ALL)
     difference = generate_diff(file_1, file_2)
     assert render_plain(difference) == expected
 
 
 def test_plain_add_complex_value():
-    file_1 = open_file(test_files["before_2"])
-    file_2 = open_file(test_files["before_3"])
-    expected = open_txt(answer_files["plain_add_complex"])
+    file_1 = open_file(BEFORE_2)
+    file_2 = open_file(BEFORE_3)
+    expected = read_txt(PLAIN_ADD_COMPLEX)
     difference = generate_diff(file_1, file_2)
     assert render_plain(difference) == expected
 
 
 def test_plain_remove_complex_value():
-    file_1 = open_file(test_files["before_3"])
-    file_2 = open_file(test_files["before_2"])
-    expected = open_txt(answer_files["plain_remove_complex"])
+    file_1 = open_file(BEFORE_3)
+    file_2 = open_file(BEFORE_2)
+    expected = read_txt(PLAIN_REMOVE_COMPLEX)
     difference = generate_diff(file_1, file_2)
     assert render_plain(difference) == expected
 
 
 def test_json_difference():
-    file_1 = open_file(test_files["before_2"])
-    file_2 = open_file(test_files["after_2"])
-    expected = open_txt(answer_files["json_changes"])
+    file_1 = open_file(BEFORE_2)
+    file_2 = open_file(AFTER_2)
+    expected = read_txt(JSON_CHANGES)
     difference = generate_diff(file_1, file_2)
     assert render_json(difference) == expected
