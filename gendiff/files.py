@@ -3,7 +3,6 @@ import json
 import yaml
 
 
-SUPPORTED_FORMATS = ["json", "yaml", "yml"]
 YAML_FORMATS = ["yaml", "yml"]
 
 
