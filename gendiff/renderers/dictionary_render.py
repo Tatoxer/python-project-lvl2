@@ -1,5 +1,5 @@
 from colorama import Fore
-from gendiff.difference import CHANGED, NESTED, generate_diff
+from gendiff.difference import REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED, generate_diff
 from gendiff.files import read_file
 
 
@@ -48,4 +48,4 @@ def check_color_condition(index, string, result, color):
 
 file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
 file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_after_2.json")
-print(generate_diff(file1, file2))
+#print(generate_diff(file1, file2))

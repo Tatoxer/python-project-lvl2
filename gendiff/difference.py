@@ -1,61 +1,41 @@
+from gendiff.files import read_file
+
 REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
     "removed", "added", "non_changed", "changed", "nested"
 )
 
 
-def mark_non_changed_all_keys(dictionary):
-    for key, value in dictionary.items():
-        if isinstance(value, dict):
-            dictionary[key] = (NESTED, value)
-            mark_non_changed_all_keys(value)
-        else:
-            dictionary[key] = (NON_CHANGED, value)
-
-
-def mark_removed_key(key, value, dictionary_before, dictionary_after):
-    if key not in dictionary_after:
-        dictionary_before[key] = (REMOVED, value)
-
-
-def mark_changed_key(key, dictionary_before, dictionary_after):
-    if key in dictionary_after and dictionary_before[key] != dictionary_after[key]:  # noqa: E501
-        dictionary_before[key] = (CHANGED, (dictionary_before[key], dictionary_after[key]))  # noqa: E501
-
-
-def mark_non_changed_key(key, dictionary_before, dictionary_after):
-    if key in dictionary_after and dictionary_before[key] == dictionary_after[key]:  # noqa: E501
-        dictionary_before[key] = (NON_CHANGED, dictionary_before[key])
-
-
-def mark_added_key(dictionary_before, dictionary_after):
-    if isinstance(dictionary_after, dict):
-        for key, value in dictionary_after.items():
-            if isinstance(value, dict) and key not in dictionary_before:
-                dictionary_before[key] = (ADDED, value)
-
-                if isinstance(value, dict):
-                    mark_non_changed_all_keys(value)
-
-            elif key not in dictionary_before:
-                dictionary_before[key] = (ADDED, value)
+def mark_keys(dictionary1, dictionary2):
+    result = {
+        NON_CHANGED: (dictionary1.keys() & dictionary2.keys()),
+        REMOVED: dictionary1.keys() - dictionary2.keys(),
+        ADDED: dictionary2.keys() - dictionary1.keys()}
+    return result
 
 
 def generate_diff(before, after):
+    key_status = mark_keys(before, after)
     for key, value in before.items():
-        if isinstance(value, dict):
-            if key not in after:
-                before[key] = (REMOVED, value)
-                if isinstance(value, dict):
-                    mark_non_changed_all_keys(value)
+        if isinstance(value, dict) and key in key_status[NON_CHANGED]:
+            before[key] = (NESTED, value)
+            generate_diff(value, after[key])
 
-            else:
-                before[key] = (NESTED, value)
-                generate_diff(value, after[key])
+        elif key in key_status[REMOVED]:
+            before[key] = (REMOVED, value)
+
+        elif key in after and not value == after[key]:
+            before[key] = (CHANGED, (value, after[key]))
 
         else:
-            mark_removed_key(key, value, before, after)
-            mark_changed_key(key, before, after)
-            mark_non_changed_key(key, before, after)
+            before[key] = (NON_CHANGED, value)
 
-    mark_added_key(before, after)
+    for key, value in after.items():
+        if key in key_status[ADDED]:
+            before[key] = (ADDED, value)
+
     return before
+
+
+# file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
+# file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_after_2.json")
+# print(generate_diff(file1, file2))
