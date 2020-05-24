@@ -1,5 +1,6 @@
 from colorama import Fore
-from gendiff.difference import CHANGED, NESTED
+from gendiff.difference import CHANGED, NESTED, generate_diff
+from gendiff.files import read_file
 
 
 MARKERS = {
@@ -28,13 +29,12 @@ def render_dictionary(dictionary, spaces=2):
                                   spaces=spaces, marker=MARKERS[value[0]])
 
         elif value[0] == CHANGED:
-            result += make_result(key, value[2], spaces=spaces, marker="- ")
-            result += make_result(key, value[1], spaces=spaces, marker="+ ")
+            result += make_result(key, value[1][0], spaces=spaces, marker="- ")
+            result += make_result(key, value[1][1], spaces=spaces, marker="+ ")
         else:
             result += make_result(key, value[1], spaces=spaces, marker=MARKERS[value[0]])  # noqa: E501
 
     result += ' ' * (spaces - 2) + '}' + "\n"
-    #print_colored_dict(result)
     return result
 
 
@@ -46,21 +46,6 @@ def check_color_condition(index, string, result, color):
     return result, index
 
 
-def print_colored_dict(string):
-    result = ""
-    string = string.splitlines()
-    index = 0
-    while index < len(string):
-        if "-" in string[index]:
-            result, index = check_color_condition(index, string, result, Fore.RED)  # noqa: E501
-            result += Fore.RED + string[index] + "\n"
-            index += 1
-
-        elif "+" in string[index]:
-            result, index = check_color_condition(index, string, result, Fore.GREEN)    # noqa: E501
-            result += Fore.GREEN + string[index] + "\n"
-            index += 1
-        else:
-            result += Fore.WHITE + string[index] + "\n"
-            index += 1
-    print(result)
+file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
+file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_after_2.json")
+print(generate_diff(file1, file2))

@@ -7,12 +7,12 @@ def make_result(key, value):
         result = Fore.RED + f"Property '{key}' was {value[0]}\n"
 
     elif value[0] == CHANGED:
-        if isinstance(value[2], dict):
+        if isinstance(value[1][1], dict):
             result = Fore.YELLOW + f"Property '{key}' was {value[0]} " \
-                     f"from '{value[1]}' to 'complex value'\n"
+                     f"from '{value[1][0]}' to 'complex value'\n"
         else:
             result = Fore.YELLOW + f"Property '{key}' was {value[0]} " \
-                     f"from '{value[1]}' to '{value[2]}'\n"
+                     f"from '{value[1][0]}' to '{value[1][1]}'\n"
 
     elif value[0] == ADDED:
         if isinstance(value[1], dict):
