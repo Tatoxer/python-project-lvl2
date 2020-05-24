@@ -1,6 +1,7 @@
-from gendiff import generate_diff, render_dictionary, open_file, \
+from gendiff import generate_diff, render_dictionary, \
     render_plain, render_json
-
+from gendiff.files import read_file
+import json
 
 """Test files"""
 EMPTY_FILE = "tests/fixtures/test_empty.json"
@@ -23,7 +24,21 @@ PLAIN_REMOVE_ALL = "tests/fixtures/answer_plain_remove_all.txt"
 PLAIN_ADD_ALL = "tests/fixtures/answer_plain_add_all.txt"
 PLAIN_ADD_COMPLEX = "tests/fixtures/answer_plain_add_complex_values.txt"
 PLAIN_REMOVE_COMPLEX = "tests/fixtures/answer_plain_remove_complex_values.txt"
-JSON_CHANGES = "tests/fixtures/answer_json_changes.txt"
+JSON_CHANGES = "tests/fixtures/answer_json_changes.json"
+
+TEST_DATA = [
+    (EMPTY_FILE, ADD_ONE, PLUS_ONE, render_dictionary),
+    (ADD_ONE, EMPTY_FILE, MINUS_ONE, render_dictionary),
+    (BEFORE, AFTER, REMOVED_AND_ADDED, render_dictionary),
+    (BEFORE_2, EMPTY_FILE, REMOVED_ALL, render_dictionary),
+    (EMPTY_FILE, BEFORE_2, ADDED_ALL, render_dictionary),
+    (BEFORE_2, AFTER_2, CHANGES, render_dictionary),
+    (BEFORE_2, AFTER_2, PLAIN_CHANGES, render_plain),
+    (BEFORE_2, EMPTY_FILE, PLAIN_REMOVE_ALL, render_plain),
+    (EMPTY_FILE, BEFORE_2, PLAIN_ADD_ALL, render_plain),
+    (BEFORE_2, BEFORE_3, PLAIN_ADD_COMPLEX, render_plain),
+    (BEFORE_3, BEFORE_2, PLAIN_REMOVE_COMPLEX, render_plain),
+]
 
 
 def read_txt(path_to_file):
@@ -33,101 +48,22 @@ def read_txt(path_to_file):
 
 
 def test_empty():
-    file_1 = open_file(EMPTY_FILE)
+    file_1 = read_file(EMPTY_FILE)
     assert generate_diff(file_1, file_1) == {}
 
 
-def test_add_one_to_empty():
-    file_1 = open_file(EMPTY_FILE)
-    file_2 = open_file(ADD_ONE)
-    expected = read_txt(PLUS_ONE)
-    difference = generate_diff(file_1, file_2)
-    assert render_dictionary(difference) == expected
+def test_values():
+    for elem in TEST_DATA:
+        file1 = read_file(elem[0])
+        file2 = read_file(elem[1])
+        expected = read_txt(elem[2])
+        difference = generate_diff(file1, file2)
+        assert elem[3](difference) == expected
 
 
-def test_remove_one_to_empty():
-    file_1 = open_file(ADD_ONE)
-    file_2 = open_file(EMPTY_FILE)
-    expected = read_txt(MINUS_ONE)
-    difference = generate_diff(file_1, file_2)
-    assert render_dictionary(difference) == expected
-
-
-def test_removed_and_added():
-    file_1 = open_file(BEFORE)
-    file_2 = open_file(AFTER)
-    expected = read_txt(REMOVED_AND_ADDED)
-    difference = generate_diff(file_1, file_2)
-    assert render_dictionary(difference) == expected
-
-
-def test_remove_all():
-    file_1 = open_file(BEFORE_2)
-    file_2 = open_file(EMPTY_FILE)
-    expected = read_txt(REMOVED_ALL)
-    difference = generate_diff(file_1, file_2)
-    assert render_dictionary(difference) == expected
-
-
-def test_add_all():
-    file_1 = open_file(EMPTY_FILE)
-    file_2 = open_file(BEFORE_2)
-    expected = read_txt(ADDED_ALL)
-    difference = generate_diff(file_1, file_2)
-    assert render_dictionary(difference) == expected
-
-
-def test_changes():
-    file_1 = open_file(BEFORE_2)
-    file_2 = open_file(AFTER_2)
-    expected = read_txt(CHANGES)
-    difference = generate_diff(file_1, file_2)
-    assert render_dictionary(difference) == expected
-
-
-def test_plain_changes():
-    file_1 = open_file(BEFORE_2)
-    file_2 = open_file(AFTER_2)
-    expected = read_txt(PLAIN_CHANGES)
-    difference = generate_diff(file_1, file_2)
-    assert render_plain(difference) == expected
-
-
-def test_plain_remove_all():
-    file_1 = open_file(BEFORE_2)
-    file_2 = open_file(EMPTY_FILE)
-    expected = read_txt(PLAIN_REMOVE_ALL)
-    difference = generate_diff(file_1, file_2)
-    assert render_plain(difference) == expected
-
-
-def test_plain_add_all():
-    file_1 = open_file(EMPTY_FILE)
-    file_2 = open_file(BEFORE_2)
-    expected = read_txt(PLAIN_ADD_ALL)
-    difference = generate_diff(file_1, file_2)
-    assert render_plain(difference) == expected
-
-
-def test_plain_add_complex_value():
-    file_1 = open_file(BEFORE_2)
-    file_2 = open_file(BEFORE_3)
-    expected = read_txt(PLAIN_ADD_COMPLEX)
-    difference = generate_diff(file_1, file_2)
-    assert render_plain(difference) == expected
-
-
-def test_plain_remove_complex_value():
-    file_1 = open_file(BEFORE_3)
-    file_2 = open_file(BEFORE_2)
-    expected = read_txt(PLAIN_REMOVE_COMPLEX)
-    difference = generate_diff(file_1, file_2)
-    assert render_plain(difference) == expected
-
-
-def test_json_difference():
-    file_1 = open_file(BEFORE_2)
-    file_2 = open_file(AFTER_2)
-    expected = read_txt(JSON_CHANGES)
-    difference = generate_diff(file_1, file_2)
+def test_json():
+    file1 = read_file(BEFORE_2)
+    file2 = read_file(AFTER_2)
+    expected = json.load(open(JSON_CHANGES))
+    difference = generate_diff(file1, file2)
     assert render_json(difference) == expected

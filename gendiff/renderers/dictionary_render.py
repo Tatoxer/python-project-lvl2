@@ -1,8 +1,7 @@
 from colorama import Fore
+from gendiff.difference import CHANGED, NESTED
 
-REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
-    "removed", "added", "non_changed", "changed", "nested"
-)
+
 MARKERS = {
     "non_changed": None,
     "removed": "- ",
@@ -35,6 +34,7 @@ def render_dictionary(dictionary, spaces=2):
             result += make_result(key, value[1], spaces=spaces, marker=MARKERS[value[0]])  # noqa: E501
 
     result += ' ' * (spaces - 2) + '}' + "\n"
+    #print_colored_dict(result)
     return result
 
 

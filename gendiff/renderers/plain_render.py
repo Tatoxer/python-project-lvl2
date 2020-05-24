@@ -1,28 +1,25 @@
 from colorama import Fore
-
-REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
-    "removed", "added", "non_changed", "changed", "nested"
-)
+from gendiff.difference import REMOVED, ADDED, CHANGED
 
 
 def make_result(key, value):
     if value[0] == REMOVED:
-        result = f"Property '{key}' was {value[0]}\n"
+        result = Fore.RED + f"Property '{key}' was {value[0]}\n"
 
     elif value[0] == CHANGED:
         if isinstance(value[2], dict):
-            result = f"Property '{key}' was {value[0]} " \
+            result = Fore.YELLOW + f"Property '{key}' was {value[0]} " \
                      f"from '{value[1]}' to 'complex value'\n"
         else:
-            result = f"Property '{key}' was {value[0]} " \
+            result = Fore.YELLOW + f"Property '{key}' was {value[0]} " \
                      f"from '{value[1]}' to '{value[2]}'\n"
 
     elif value[0] == ADDED:
         if isinstance(value[1], dict):
-            result = f"Property '{key}' was {value[0]} " \
+            result = Fore.GREEN + f"Property '{key}' was {value[0]} " \
                      f"with value: 'complex value'\n"
         else:
-            result = f"Property '{key}' was {value[0]} " \
+            result = Fore.GREEN + f"Property '{key}' was {value[0]} " \
                      f"with value: '{value[1]}'\n"
 
     else:
@@ -52,14 +49,4 @@ def render_plain(dictionary, root_keys=None):
     return result
 
 
-def print_colored_plain(string):
-    string = string.splitlines()
-    result = ""
-    for elem in string:
-        if "removed" in elem:
-            result += Fore.RED + elem + "\n"
-        elif "added" in elem:
-            result += Fore.GREEN + elem + "\n"
-        else:
-            result += Fore.YELLOW + elem + "\n"
-    print(result)
+
