@@ -21,7 +21,11 @@ def generate_diff(before, after):
             generate_diff(value, after[key])
 
         elif key in key_status[REMOVED]:
-            before[key] = (REMOVED, value)
+            if isinstance(value, dict):
+                before[key] = (REMOVED, value)
+                generate_diff(value, value)
+            else:
+                before[key] = (REMOVED, value)
 
         elif key in after and not value == after[key]:
             before[key] = (CHANGED, (value, after[key]))
@@ -31,11 +35,15 @@ def generate_diff(before, after):
 
     for key, value in after.items():
         if key in key_status[ADDED]:
-            before[key] = (ADDED, value)
+            if isinstance(after[key], dict):
+                before[key] = (ADDED, value)
+                generate_diff(value, value)
+            else:
+                before[key] = (ADDED, value)
 
     return before
 
 
-# file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
-# file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_after_2.json")
+file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
+file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_after_2.json")
 # print(generate_diff(file1, file2))
