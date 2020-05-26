@@ -1,5 +1,7 @@
 from colorama import Fore
 from gendiff.difference import REMOVED, ADDED, CHANGED, NESTED
+from gendiff.files import read_file
+from gendiff import generate_diff
 
 
 def make_value(value):
@@ -31,14 +33,22 @@ def make_result(list_):
 
 
 def render_plain(dictionary, root_keys=None):
-    list_ = []
+    strings = []
 
     for key, (status, value) in dictionary.items():
         path = f"{root_keys}.{key}" if root_keys else key
         if status == NESTED:
-            list_.append([path, status, render_plain(value, key)])
+            strings.append([path, status, render_plain(value, key)])
         else:
-            list_.append((path, status, value))
+            strings.append((path, status, value))
 
-    result = (make_result(list_))
-    return "".join(result)
+    result = (make_result(strings))
+    #"".join(result)
+    return strings
+
+
+
+# file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
+# file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_after_2.json")
+# d = (generate_diff(file1, file2))
+# print(render_plain(d))
