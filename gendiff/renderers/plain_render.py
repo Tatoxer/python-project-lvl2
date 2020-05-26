@@ -1,7 +1,5 @@
 from colorama import Fore
 from gendiff.difference import REMOVED, ADDED, CHANGED, NESTED
-from gendiff.files import read_file
-from gendiff.difference import generate_diff
 
 
 def make_value(value):
