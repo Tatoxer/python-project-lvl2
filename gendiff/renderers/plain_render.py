@@ -30,38 +30,26 @@ def make_result(key, status, value):
     return result
 
 
-def render_plain(dictionary):
+def render_plain(dictionary, root_keys=None):
     result = ""
 
     for key, (status, value) in dictionary.items():
-        path = key
+        path = f"{root_keys}.{key}" if root_keys else key
         if status == REMOVED:
             result += make_result(path, status, value)
 
         elif status == ADDED:
             result += make_result(path, status, value)
 
-        elif isinstance(value, dict):
-            result += render_plain(value)
+        elif status == NESTED:
+            result += render_plain(value, path)
         else:
             result += make_result(path, status, value)
-    return result
-
-
-def build_path(dictionary, root_keys=None):
-    result = ""
-    for key, (status, value) in dictionary.items():
-        path = f"{root_keys}.{key}" if root_keys else key
-        if isinstance(value, dict):
-            build_path(value, path)
-        else:
-            result = path
-    print(result)
     return result
 
 
 file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
 file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_after_2.json")
 d = generate_diff(file1, file2)
-#print(render_plain(d))
-print(build_path(d))
+print(render_plain(d))
+
