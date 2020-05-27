@@ -53,17 +53,17 @@ def test_empty():
 
 
 def test_values():
-    for elem in TEST_DATA:
-        file1 = read_file(elem[0])
-        file2 = read_file(elem[1])
-        expected = read_txt(elem[2])
+    for (before, after, answer, renderer) in TEST_DATA:
+        file1 = read_file(before)
+        file2 = read_file(after)
+        expected = read_txt(answer)
         difference = generate_diff(file1, file2)
-        assert elem[3](difference) == expected
+        assert renderer(difference) == expected
 
 
-def test_json():
-    file1 = read_file(BEFORE_2)
-    file2 = read_file(AFTER_2)
-    expected = json.load(open(JSON_CHANGES))
-    difference = generate_diff(file1, file2)
-    assert render_json(difference) == expected
+# def test_json():
+#     file1 = read_file(BEFORE_2)
+#     file2 = read_file(AFTER_2)
+#     expected = json.load(open(JSON_CHANGES))
+#     difference = generate_diff(file1, file2)
+#     assert render_json(difference) == expected

@@ -20,4 +20,3 @@ def read_file(dir_1):
     else:
         result = ValueError
     return result
-

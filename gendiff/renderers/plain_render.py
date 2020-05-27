@@ -1,7 +1,5 @@
 from colorama import Fore
 from gendiff.difference import REMOVED, ADDED, CHANGED, NESTED
-from gendiff.files import read_file
-from gendiff import generate_diff
 
 
 def make_value(value):
@@ -17,17 +15,17 @@ def make_result(list_):
             result.extend(value)
 
         if status == REMOVED:
-            result.append(Fore.RED + f"Property {path} was {status}\n")
+            result.append(f"Property {path} was {status}\n")
 
         elif status == ADDED:
             value = make_value(value)
-            result.append(Fore.GREEN + f"Property {path} was {status} with value: '{value}'\n")
+            result.append(f"Property {path} was {status} with value: '{value}'\n")  # noqa: E501
 
         elif status == CHANGED:
             changed_value = value[1]
             changed_value = make_value(changed_value)
-            result.append(Fore.YELLOW + f"Property {path} was {status} "
-                                        f"from '{value[0]}' to '{changed_value}'\n")
+            result.append(f"Property {path} was {status} "
+                                        f"from '{value[0]}' to '{changed_value}'\n")  # noqa: E501
 
     return result
 
@@ -43,12 +41,4 @@ def render_plain(dictionary, root_keys=None):
             strings.append((path, status, value))
 
     result = (make_result(strings))
-    #"".join(result)
-    return strings
-
-
-
-# file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
-# file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_after_2.json")
-# d = (generate_diff(file1, file2))
-# print(render_plain(d))
+    return "".join(result)

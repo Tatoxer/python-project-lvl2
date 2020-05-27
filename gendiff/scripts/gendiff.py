@@ -13,7 +13,7 @@ RENDERERS = {
 parser = argparse.ArgumentParser(description="Generate difference")
 parser.add_argument("file1", type=str,  help='path/to/file1')
 parser.add_argument("file2", type=str,  help='path/to/file2')
-parser.add_argument('-f', '--format', choices=RENDERERS.keys(), default="plain",
+parser.add_argument('-f', '--format', choices=RENDERERS.keys(), default="plain",    # noqa: E501
                     help='set printing result format'
                          'available: "plain", "dictionary", "json". '
                          'Default: plain')
