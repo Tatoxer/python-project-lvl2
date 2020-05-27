@@ -1,5 +1,6 @@
 from colorama import Fore
-from gendiff.difference import REMOVED, ADDED, CHANGED, NESTED
+from gendiff.difference import REMOVED, ADDED, CHANGED, NESTED, generate_diff
+from gendiff.files import read_file
 
 
 def make_value(value):
@@ -42,3 +43,9 @@ def render_plain(dictionary, root_keys=None):
 
     result = (make_result(strings))
     return "".join(result)
+
+
+# file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
+# file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_after_2.json")
+# d = generate_diff(file1, file2)
+# print(render_plain(d))

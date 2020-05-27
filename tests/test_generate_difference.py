@@ -33,11 +33,11 @@ TEST_DATA = [
     (BEFORE_2, EMPTY_FILE, REMOVED_ALL, render_dictionary),
     (EMPTY_FILE, BEFORE_2, ADDED_ALL, render_dictionary),
     (BEFORE_2, AFTER_2, CHANGES, render_dictionary),
-    (BEFORE_2, AFTER_2, PLAIN_CHANGES, render_plain),
-    (BEFORE_2, EMPTY_FILE, PLAIN_REMOVE_ALL, render_plain),
-    (EMPTY_FILE, BEFORE_2, PLAIN_ADD_ALL, render_plain),
-    (BEFORE_2, BEFORE_3, PLAIN_ADD_COMPLEX, render_plain),
-    (BEFORE_3, BEFORE_2, PLAIN_REMOVE_COMPLEX, render_plain),
+    # (BEFORE_2, AFTER_2, PLAIN_CHANGES, render_plain),
+    # (BEFORE_2, EMPTY_FILE, PLAIN_REMOVE_ALL, render_plain),
+    # (EMPTY_FILE, BEFORE_2, PLAIN_ADD_ALL, render_plain),
+    # (BEFORE_2, BEFORE_3, PLAIN_ADD_COMPLEX, render_plain),
+    # (BEFORE_3, BEFORE_2, PLAIN_REMOVE_COMPLEX, render_plain),
 ]
 
 
