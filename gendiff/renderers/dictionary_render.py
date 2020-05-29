@@ -1,8 +1,5 @@
-from colorama import Fore, init
-from gendiff.difference import REMOVED, ADDED, CHANGED, NESTED, generate_diff
-from gendiff.files import read_file
-
-init()
+# from colorama import Fore, init
+from gendiff.difference import REMOVED, ADDED, CHANGED, NESTED
 
 
 def make_result(list_, spaces):
@@ -53,20 +50,11 @@ def render_dictionary(dictionary, spaces=2):
                 strings.append((key, status, value))
         else:
             if isinstance(value, dict):
-                strings.append((key, render_dictionary(value, spaces=spaces + 4)))
+                strings.append((key, render_dictionary(value, spaces=spaces + 4)))  # noqa: E501
             else:
                 strings.append((key, value))
 
     strings.sort()
     result = (make_result(strings, spaces))
-    #print(result)
     # "".join(result)
     return "".join(result)
-
-
-file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
-file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_empty.json")
-d = generate_diff(file1, file2)
-# # print(file2)
-#print(d)
-print(render_dictionary(d))

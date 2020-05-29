@@ -33,11 +33,11 @@ TEST_DATA = [
     (BEFORE_2, EMPTY_FILE, REMOVED_ALL, render_dictionary),
     (EMPTY_FILE, BEFORE_2, ADDED_ALL, render_dictionary),
     (BEFORE_2, AFTER_2, CHANGES, render_dictionary),
-    # (BEFORE_2, AFTER_2, PLAIN_CHANGES, render_plain),
-    # (BEFORE_2, EMPTY_FILE, PLAIN_REMOVE_ALL, render_plain),
-    # (EMPTY_FILE, BEFORE_2, PLAIN_ADD_ALL, render_plain),
-    # (BEFORE_2, BEFORE_3, PLAIN_ADD_COMPLEX, render_plain),
-    # (BEFORE_3, BEFORE_2, PLAIN_REMOVE_COMPLEX, render_plain),
+    (BEFORE_2, AFTER_2, PLAIN_CHANGES, render_plain),
+    (BEFORE_2, EMPTY_FILE, PLAIN_REMOVE_ALL, render_plain),
+    (EMPTY_FILE, BEFORE_2, PLAIN_ADD_ALL, render_plain),
+    (BEFORE_2, BEFORE_3, PLAIN_ADD_COMPLEX, render_plain),
+    (BEFORE_3, BEFORE_2, PLAIN_REMOVE_COMPLEX, render_plain),
 ]
 
 
@@ -61,9 +61,10 @@ def test_values():
         assert renderer(difference) == expected
 
 
-# def test_json():
-#     file1 = read_file(BEFORE_2)
-#     file2 = read_file(AFTER_2)
-#     expected = json.load(open(JSON_CHANGES))
-#     difference = generate_diff(file1, file2)
-#     assert render_json(difference) == expected
+def test_json():
+    file1 = read_file(BEFORE)
+    file2 = read_file(AFTER)
+    expected = json.load(open(JSON_CHANGES))
+    expected = render_json(expected)
+    difference = generate_diff(file1, file2)
+    assert render_json(difference) == expected

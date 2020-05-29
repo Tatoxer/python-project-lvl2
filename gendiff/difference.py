@@ -1,5 +1,3 @@
-from gendiff.files import read_file
-
 REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
     "removed", "added", "non_changed", "changed", "nested"
 )
@@ -32,8 +30,3 @@ def generate_diff(before, after):
         result[key] = (ADDED, after[key])
 
     return result
-
-
-file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
-file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_after_2.json")
-# print(generate_diff(file1, file2))

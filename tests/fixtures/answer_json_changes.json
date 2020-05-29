@@ -1,73 +1,21 @@
 {
-  "common": [
-    "nested",
-    {
-      "setting1": [
-        "non_changed",
-        "Value 1"
-      ],
-      "setting2": [
-        "removed",
-        "200"
-      ],
-      "setting3": [
-        "non_changed",
-        true
-      ],
-      "setting4": [
-        "added",
-        "blah blah"
-      ],
-      "setting5": [
-        "added",
-        {
-          "key5": [
-            "non_changed",
-            "value5"
-          ]
-        }
-      ],
-      "setting6": [
-        "removed",
-        {
-          "key": [
-            "non_changed",
-            "value"
-          ]
-        }
-      ]
-    }
+  "host": [
+    "non_changed",
+    "hexlet.io"
   ],
-  "group1": [
-    "nested",
-    {
-      "baz": [
-        "changed",
-        "bas",
-        "bars"
-      ],
-      "foo": [
-        "non_changed",
-        "bar"
-      ]
-    }
+  "timeout": [
+    "changed",
+    [
+      50,
+      20
+    ]
   ],
-  "group2": [
+  "proxy": [
     "removed",
-    {
-      "abc": [
-        "non_changed",
-        "12345"
-      ]
-    }
+    "123.234.53.22"
   ],
-  "group3": [
+  "verbose": [
     "added",
-    {
-      "fee": [
-        "non_changed",
-        "100500"
-      ]
-    }
+    true
   ]
 }

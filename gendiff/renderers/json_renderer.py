@@ -1,5 +1,5 @@
 import json
 
 
-def render_json(string):
-    return json.dumps(string, indent=2)
+def render_json(dictionary):
+    return json.dumps(dictionary, indent=2)
