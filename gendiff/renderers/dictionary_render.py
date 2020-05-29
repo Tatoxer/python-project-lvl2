@@ -25,17 +25,17 @@ def make_result(list_, spaces, no_color):
 
             elif status == REMOVED:
                 string = f"{string_spaces}- {key}: {value}\n"
-                result.append(apply_color(string, Fore.RED, no_colors=no_color))
+                result.append(apply_color(string, Fore.RED, no_colors=no_color))  # noqa: E501
 
             elif status == ADDED:
                 string = f"{string_spaces}+ {key}: {value}\n"
-                result.append(apply_color(string, Fore.GREEN, no_colors=no_color))
+                result.append(apply_color(string, Fore.GREEN, no_colors=no_color))  # noqa: E501
 
             elif status == CHANGED:
                 string_before = f"{string_spaces}- {key}: {value[0]}\n"
                 string_after = f"{string_spaces}+ {key}: {value[1]}\n"
-                result.append(apply_color(string_before, Fore.RED, no_colors=no_color))
-                result.append(apply_color(string_after, Fore.GREEN, no_colors=no_color))
+                result.append(apply_color(string_before, Fore.RED, no_colors=no_color))  # noqa: E501
+                result.append(apply_color(string_after, Fore.GREEN, no_colors=no_color))  # noqa: E501
 
             else:
                 result.append(f"{string_spaces}  {key}: {value}\n")
@@ -68,4 +68,5 @@ def render_dictionary(diff, no_color=False):
         strings.sort()
         result = (make_result(strings, spaces, no_color))
         return "".join(result)
+
     return inner(diff)
