@@ -58,7 +58,7 @@ def test_values():
         file2 = read_file(after)
         expected = read_txt(answer)
         difference = generate_diff(file1, file2)
-        assert renderer(difference) == expected
+        assert renderer(difference, no_color=True) == expected
 
 
 def test_json():

@@ -1,4 +1,5 @@
-# from colorama import Fore
+from colorama import Fore
+from gendiff.renderers.dictionary_render import apply_color
 from gendiff.difference import REMOVED, ADDED, CHANGED, NESTED
 
 
@@ -8,40 +9,44 @@ def change_value_to_complex(value):
     return value
 
 
-def make_result(list_):
+def make_result(list_, no_color):
     result = []
     for (path, status, value) in list_:
         if status == NESTED:
             result.extend(value)
 
         if status == REMOVED:
-            result.append(f"Property '{path}' was {status}\n")
+            string = f"Property '{path}' was {status}\n"
+            result.append(apply_color(string, Fore.RED, no_colors=no_color))
 
         elif status == ADDED:
             value = change_value_to_complex(value)
-            result.append(f"Property '{path}' was {status} with value: '{value}'\n")  # noqa: E501
+            string = f"Property '{path}' was {status} with value: '{value}'\n"
+            result.append(apply_color(string, Fore.GREEN, no_colors=no_color))
 
         elif status == CHANGED:
             value_before, changed_value = value[0], value[1]
             value_before = change_value_to_complex(value_before)
             changed_value = change_value_to_complex(changed_value)
-            result.append(f"Property '{path}' was {status} "
-                          f"from '{value_before}' to '{changed_value}'\n")  # noqa: E501
+            string = f"Property '{path}' was {status} from " \
+                     f"'{value_before}' to '{changed_value}'\n"
+            result.append(apply_color(string, Fore.YELLOW, no_colors=no_color))
 
     return result
 
 
-def render_plain(dictionary, root_keys=None):
-    strings = []
+def render_plain(diff, no_color=False):
+    def inner(dictionary, root_keys=None):
+        strings = []
+        for key, (status, value) in dictionary.items():
+            path = f"{root_keys}.{key}" if root_keys else key
+            if status == NESTED:
+                strings.append([path, status, inner(value, path)])
+            else:
+                strings.append((path, status, value))
 
-    for key, (status, value) in dictionary.items():
-        path = f"{root_keys}.{key}" if root_keys else key
-        if status == NESTED:
-            strings.append([path, status, render_plain(value, path)])
-        else:
-            strings.append((path, status, value))
-
-    strings = list(map(list, strings))
-    strings.sort()
-    result = (make_result(strings))
-    return "".join(result)
+        strings = list(map(list, strings))
+        strings.sort()
+        result = (make_result(strings, no_color))
+        return "".join(result)
+    return inner(diff)
