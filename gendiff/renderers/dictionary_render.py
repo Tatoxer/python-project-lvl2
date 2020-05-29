@@ -56,5 +56,4 @@ def render_dictionary(dictionary, spaces=2):
 
     strings.sort()
     result = (make_result(strings, spaces))
-    # "".join(result)
     return "".join(result)
