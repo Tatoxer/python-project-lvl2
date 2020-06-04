@@ -1,9 +1,6 @@
 # python-project-lvl2
 [![Maintainability](https://api.codeclimate.com/v1/badges/062b0c622abd1459f96b/maintainability)](https://codeclimate.com/github/Tatoxer/python-project-lvl2/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/062b0c622abd1459f96b/test_coverage)](https://codeclimate.com/github/Tatoxer/python-project-lvl2/test_coverage) [![Build Status](https://travis-ci.org/Tatoxer/python-project-lvl2.svg?branch=master)](https://travis-ci.org/Tatoxer/python-project-lvl2)
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/062b0c622abd1459f96b/test_coverage)](https://codeclimate.com/github/Tatoxer/python-project-lvl2/test_coverage)
-
-[![Build Status](https://travis-ci.org/Tatoxer/python-project-lvl2.svg?branch=master)](https://travis-ci.org/Tatoxer/python-project-lvl2)
 
 ## Install
 ```
@@ -12,6 +9,20 @@ python3 -m pip install --index-url https://test.pypi.org/simple/ --extra-index-u
 [![asciicast](https://asciinema.org/a/dNlIH1b0Be5ibGw3wDveH1eTu.svg)](https://asciinema.org/a/dNlIH1b0Be5ibGw3wDveH1eTu)
 
 ## Usage
+gendiff [-h] [-n] [-f {plain,dictionary,json}] file1 file2
+
+Generate difference
+
+positional arguments:
+  file1                 path/to/file1
+  file2                 path/to/file2
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -n, --no_colors       Print non colored result
+  -f {plain,dictionary,json}, --format {plain,dictionary,json}
+                        set printing format resultavailable: "plain", "dictionary", "json". Default: plain
+
 
 ### plain json
 [![asciicast](https://asciinema.org/a/5y1DYgx9lXz3tIrko828MMW64.svg)](https://asciinema.org/a/5y1DYgx9lXz3tIrko828MMW64)
