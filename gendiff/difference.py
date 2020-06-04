@@ -16,14 +16,14 @@ def generate_diff(before, after):
                 result[key] = (CHANGED, (before[key], after[key]))
 
     for key in before.keys() - after.keys():
-        result[key] = (REMOVED, before[key])
+        if isinstance(before[key], dict):
+            result[key] = (REMOVED, generate_diff(before[key], before[key]))
+        else:
+            result[key] = (REMOVED, before[key])
 
     for key in after.keys() - before.keys():
-        result[key] = (ADDED, after[key])
-
+        if isinstance(after[key], dict):
+            result[key] = (ADDED, generate_diff(after[key], after[key]))
+        else:
+            result[key] = (ADDED, after[key])
     return result
-
-
-file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
-file2 = read_file('/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_after_2.json')
-print(generate_diff(file1, file2))
