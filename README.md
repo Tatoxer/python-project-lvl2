@@ -9,16 +9,16 @@ python3 -m pip install --index-url https://test.pypi.org/simple/ --extra-index-u
 [![asciicast](https://asciinema.org/a/dNlIH1b0Be5ibGw3wDveH1eTu.svg)](https://asciinema.org/a/dNlIH1b0Be5ibGw3wDveH1eTu)
 
 ## Usage
-gendiff [-h] [-n] [-f] file1 file2
+* gendiff [-h] [-n] [-f] file1 file2
 
 ### positional arguments:
-  * file1 - path/to/file1
-  * file2 - path/to/file2
+  * **file1** - path/to/file1
+  * **file2** - path/to/file2
 
 ### optional arguments:
-  * -h, --help            show this help message and exit
-  * -n, --no_colors       Print non colored result
-  * -f , --format set printing format resultavailable: "plain", "dictionary", "json". Default: plain
+  * **-h, --help**:            show this help message and exit
+  * **-n, --no_colors**:       Print non colored result
+  * **-f , --format**: set printing format resultavailable: "plain", "dictionary", "json". Default: plain
 
 
 ### plain json
