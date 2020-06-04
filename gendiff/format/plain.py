@@ -1,5 +1,5 @@
 from colorama import Fore
-from gendiff.renderers.dictionary_render import apply_color
+from gendiff.format.dictionary import apply_color
 from gendiff.difference import REMOVED, ADDED, CHANGED, NESTED
 
 
@@ -35,7 +35,7 @@ def make_result(list_, no_color):
     return result
 
 
-def render_plain(diff, no_color=False):
+def format_plain(diff, no_color=False):
     def inner(dictionary, root_keys=None):
         strings = []
         for key, (status, value) in dictionary.items():

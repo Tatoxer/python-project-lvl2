@@ -46,7 +46,7 @@ def make_result(list_, spaces, no_color):
     return result
 
 
-def render_dictionary(diff, no_color=False):
+def format_dictionary(diff, no_color=False):
     def inner(dictionary, spaces=2):
         strings = []
         for key, value in dictionary.items():

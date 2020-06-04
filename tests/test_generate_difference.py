@@ -3,7 +3,7 @@ from gendiff import generate_diff, render_dictionary, \
 from gendiff.files import read_file
 import json
 
-"""Test files"""
+# Test files
 EMPTY_FILE = "tests/fixtures/test_empty.json"
 ADD_ONE = "tests/fixtures/test_add_one.json"
 BEFORE = "tests/fixtures/test_before.json"
@@ -12,7 +12,7 @@ BEFORE_2 = "tests/fixtures/test_before_2.json"
 AFTER_2 = "tests/fixtures/test_after_2.json"
 BEFORE_3 = "tests/fixtures/test_before_3.json"
 
-"""Answer files"""
+# Answer files
 PLUS_ONE = "tests/fixtures/answer_plus_one.txt"
 MINUS_ONE = "tests/fixtures/answer_minus_one.txt"
 REMOVED_AND_ADDED = "tests/fixtures/answer_removed_and_added.txt"
@@ -48,8 +48,7 @@ def read_txt(path_to_file):
 
 
 def test_empty():
-    file_1 = read_file(EMPTY_FILE)
-    assert generate_diff(file_1, file_1) == {}
+    assert generate_diff({}, {}) == {}
 
 
 def test_values():
