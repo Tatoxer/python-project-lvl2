@@ -1,4 +1,3 @@
-from gendiff.files import read_file
 REMOVED, ADDED, NON_CHANGED, CHANGED, NESTED = (
     "removed", "added", "non_changed", "changed", "nested"
 )
@@ -9,7 +8,7 @@ def generate_diff(before, after):
     for key in before.keys() & after.keys():
         if before[key] == after[key]:
             if isinstance(before[key], dict):
-                result[key] = (NON_CHANGED, generate_diff(before[key], before[key]))
+                result[key] = (NON_CHANGED, generate_diff(before[key], before[key]))    # noqa: E501
             else:
                 result[key] = (NON_CHANGED, before[key])
         else:

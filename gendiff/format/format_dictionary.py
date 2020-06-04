@@ -1,7 +1,5 @@
 from colorama import Fore
 from gendiff.difference import REMOVED, ADDED, CHANGED, NESTED
-from gendiff.difference import generate_diff
-from gendiff.files import read_file
 
 
 def apply_color(string, color1=Fore.WHITE, color2=Fore.WHITE, no_colors=False):
@@ -56,9 +54,3 @@ def format_dictionary(diff, no_color=False):
         return "".join(result)
 
     return inner(diff)
-
-
-file1 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_before_2.json")
-file2 = read_file("/home/tatoxa/python_projects/python-project-lvl2/tests/fixtures/test_empty.json")
-d = generate_diff(file1, file2)
-print(format_dictionary(d))

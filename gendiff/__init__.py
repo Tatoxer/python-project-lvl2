@@ -1,5 +1,5 @@
 from gendiff.format.format_dictionary import format_dictionary
-from gendiff.format.format_plaint import format_plain
+from gendiff.format.format_plain import format_plain
 from gendiff.format.format_json import format_json
 
 
