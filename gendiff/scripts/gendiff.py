@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 from gendiff.difference import generate_diff
-from gendiff.format import plain, json, dictionary
+from gendiff.format import format_plaint, format_json, format_dictionary
 from gendiff import files
 import argparse
 
 
 RENDERERS = {
-    "plain": plain.format_plain,
-    "dictionary": dictionary.format_dictionary,
-    "json": json.format_json
+    "plain": format_plaint.format_plain,
+    "dictionary": format_dictionary.format_dictionary,
+    "json": format_json.format_json
 }
 
 parser = argparse.ArgumentParser(description="Generate difference")

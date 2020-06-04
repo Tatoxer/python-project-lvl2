@@ -1,5 +1,5 @@
 from colorama import Fore
-from gendiff.format.dictionary import apply_color
+from gendiff.format.format_dictionary import apply_color
 from gendiff.difference import REMOVED, ADDED, CHANGED, NESTED
 
 

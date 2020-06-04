@@ -1,6 +1,6 @@
-from gendiff.format import dictionary
-from gendiff.format import plain
-from gendiff.format import json
+from gendiff.format.format_dictionary import format_dictionary
+from gendiff.format.format_plaint import format_plain
+from gendiff.format.format_json import format_json
 
 
-__all__ = ("dictionary", "plain", "json")
+__all__ = ("format_dictionary", "format_plain", "format_json")
